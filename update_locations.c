@@ -5,10 +5,7 @@
     Coordinates start in the range [-1000:1000] per dimension.
     Velocities are chosen from the range [-1:1] per dimension.
  */
-#define _POSIX_C_SOURCE 199309L 
 
-/* the above line was added as http://stackoverflow.com/questions/26769129/trying-to-use-clock-gettime-but-getting-plenty-of-undeclared-errors-from-ti suggested it would fix our library functions importing improperly...
-*/ 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +14,8 @@
 
 
 // Create a list of 'size' floating point numbers in the range [bound]
-int32_t* generate_random_list(uint32_t size, uint16_t bound) {
-	int32_t *list = malloc(sizeof(int32_t) * (int32_t)bound);
+float* generate_random_list(uint32_t size, uint16_t bound) {
+	float *list = malloc(sizeof(float) * (float)bound);
 	for (uint32_t i=0; i < size; i++) {
 		list[i] = rand();
 	}
@@ -26,16 +23,16 @@ int32_t* generate_random_list(uint32_t size, uint16_t bound) {
 }
 
 // Update location by velocity, one time-step
-void update_coords(uint32_t i, int32_t* x, int32_t* y, int32_t* z, int32_t* vx, int32_t* vy, int32_t* vz) {
+void update_coords(uint32_t i, float* x, float* y, float* z, float* vx, float* vy, float* vz) {
 	x[i] = x[i] + vx[i];
 	y[i] = y[i] + vy[i];
 	z[i] = z[i] + vz[i];
 }
 
 // Sums an array of floats; needed in replacement of Python sum()
-int32_t sum(int32_t* a, uint32_t num_elements)
+float sum(float* a, uint32_t num_elements)
 {
-	int32_t sum = 0;
+	float sum = 0.0;
 	for (uint32_t i = 0; i < num_elements; i++) {
 		sum = sum + a[i];
 	}
@@ -55,12 +52,12 @@ int main(int argc, char* argv[]) {
 
 	srand(object_size);
 
-	int32_t* x = generate_random_list(object_size, 1000);
-	int32_t* y = generate_random_list(object_size, 1000);
-	int32_t* z = generate_random_list(object_size, 1000);
-	int32_t* vx = generate_random_list(object_size, 1);
-	int32_t* vy = generate_random_list(object_size, 1);
-	int32_t* vz = generate_random_list(object_size, 1);
+	float* x = generate_random_list(object_size, 1000);
+	float* y = generate_random_list(object_size, 1000);
+	float* z = generate_random_list(object_size, 1000);
+	float* vx = generate_random_list(object_size, 1);
+	float* vy = generate_random_list(object_size, 1);
+	float* vz = generate_random_list(object_size, 1);
 
 	struct timespec requestStart, requestEnd;
 	clock_gettime(CLOCK_MONOTONIC, &requestStart);
