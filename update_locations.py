@@ -8,7 +8,7 @@
     Velocities are chosen from the range [-1:1] per dimension.
 """
 
-import random, sys, timeit, time
+import random, sys, timeit, time, statistics
 
 ###############
 # Create a list of 'size' floating point numbers in the range [-bound, bound]
@@ -25,31 +25,46 @@ def update_coords(x, y, z, vx, vy, vz):
 
 ############ Main:
 
-if (len(sys.argv) != 3):
-    print("Required arguments: vector_length(N) and iterations_num(M)")
-    sys.exit(-1)
+N = 2 ** 8
+M = 2 ** 16
 
-rt = time.clock()
-size = 2 ** int(sys.argv[1])
-iters =2 ** int(sys.argv[2])
+for i in range (0, 17):
+	rstart = time.clock()
+	rend = 0.0 
+	numberoftrials = 0
+	outputlist = []	
+	outputvalue = 0.0
+	size = N
+	iters = M 
+	while (46. > rend):
+		size = N
+		iters = M
+		random.seed(size)
+		x = generate_random_list(size, 1000.)
+		y = generate_random_list(size, 1000.)
+		z = generate_random_list(size, 1000.)
+		vx = generate_random_list(size, 1.)
+		vy = generate_random_list(size, 1.)
+		vz = generate_random_list(size, 1.)
 
-random.seed(size)
+		t = timeit.timeit(stmt = "update_coords(x, y, z, vx, vy, vz)",
+        	          	setup = "from __main__ import update_coords, x, y, z, vx, vy, vz",
+        	          	number = iters)
 
-x = generate_random_list(size, 1000.)
-y = generate_random_list(size, 1000.)
-z = generate_random_list(size, 1000.)
-vx = generate_random_list(size, 1.)
-vy = generate_random_list(size, 1.)
-vz = generate_random_list(size, 1.)
+		chksum = sum(x) + sum(y) + sum(z)
 
-t = timeit.timeit(stmt = "update_coords(x, y, z, vx, vy, vz)",
-                  setup = "from __main__ import update_coords, x, y, z, vx, vy, vz",
-                  number = iters)
+		rend = time.clock() - rstart 
+		numberoftrials += 1
+		outputlist.append((1000000 * t / (size * iters))) 	
 
-chksum = sum(x) + sum(y) + sum(z)
-print("Mean time per coordinate: " + str(1000000 * t / (size * iters)) + "us")
-print("Final checksum is: " + str(chksum))
+	outputvalue = statistics.median(outputlist)
+	print(N)
+	print(M)
+	print(numberoftrials)	
+	print(outputvalue)
+	
+	N = N * 2
+	M = int(M / 2)
+	
 
-rt = time.clock() - rt
-print(rt)
 exit(0)
