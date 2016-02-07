@@ -5,10 +5,7 @@
     Coordinates start in the range [-1000:1000] per dimension.
     Velocities are chosen from the range [-1:1] per dimension.
  */
-#define _POSIX_C_SOURCE 199309L 
 
-/* the above line was added as http://stackoverflow.com/questions/26769129/trying-to-use-clock-gettime-but-getting-plenty-of-undeclared-errors-from-ti suggested it would fix our library functions importing improperly...
-*/ 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,7 +32,7 @@ void update_coords(uint32_t i, float* x, float* y, float* z, float* vx, float* v
 // Sums an array of floats; needed in replacement of Python sum()
 float sum(float* a, uint32_t num_elements)
 {
-	float sum = 0;
+	float sum = 0.0;
 	for (uint32_t i = 0; i < num_elements; i++) {
 		sum = sum + a[i];
 	}
