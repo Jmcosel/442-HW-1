@@ -1,0 +1,7 @@
+
+
+A. We tested the total runtime at the maximum value we considered for "N", 2^24, with one iteration. We added in a measure to track the total runtime of update_locations.py. This told us it took 46.438954 seconds. With this in mind we aimed to select a total number of iterations "M" for each "N" such that the total runtime was the same. 
+
+B. As a result of taking the highest number of iterations that was possible within a time we considered reasonable we did not feel the need to run multiple times. When we considered running multiple tests for each N, M tuple we decided that median was the most effective performance measure and we chose to just use a constant 11 runs.
+
+
