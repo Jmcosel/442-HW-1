@@ -1,0 +1,3 @@
+After running update_locations_int (uses int_fast32_t types) and update_locations_float (uses float types) 10 times each,
+the difference in mean time between the two seems negigible. The tests were run with 2^24 object size over 2^8 iterations. See the int.out and float.out files for outputs for both.
+Thus, in terms of performance using either seems OK.
