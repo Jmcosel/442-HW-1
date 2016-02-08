@@ -14,25 +14,25 @@
 
 
 // Create a list of 'size' floating point numbers in the range [bound]
-float* generate_random_list(uint_fast32_t size, uint_fast32_t bound) {
-	float *list = malloc(sizeof(float) * (float)size);
+double* generate_random_list(uint_fast32_t size, uint_fast32_t bound) {
+	double *list = malloc(sizeof(double) * (double)size);
 	for (uint_fast32_t i=0; i < size; i++) {
-		list[i] = (float)rand()/(float)(RAND_MAX/bound);
+		list[i] = (double)rand()/(double)(RAND_MAX/bound);
 	}
 	return list;
 }
 
 // Update location by velocity, one time-step
-void update_coords(uint_fast32_t i, float* x, float* y, float* z, float* vx, float* vy, float* vz) {
+void update_coords(uint_fast32_t i, double* x, double* y, double* z, double* vx, double* vy, double* vz) {
 	x[i] = x[i] + vx[i];
 	y[i] = y[i] + vy[i];
 	z[i] = z[i] + vz[i];
 }
 
-// Sums an array of floats; needed in replacement of Python sum()
-float sum(float* a, uint_fast32_t num_elements)
+// Sums an array of doubles; needed in replacement of Python sum()
+double sum(double* a, uint_fast32_t num_elements)
 {
-	float sum;
+	double sum;
 	for (uint_fast32_t i = 0; i < num_elements; i++) {
 		sum += a[i];
 	}
@@ -52,12 +52,12 @@ int main(int argc, char* argv[]) {
 
 	srand(object_size);
 
-	float* x = generate_random_list(object_size, 1000);
-	float* y = generate_random_list(object_size, 1000);
-	float* z = generate_random_list(object_size, 1000);
-	float* vx = generate_random_list(object_size, 1);
-	float* vy = generate_random_list(object_size, 1);
-	float* vz = generate_random_list(object_size, 1);
+	double* x = generate_random_list(object_size, 1000);
+	double* y = generate_random_list(object_size, 1000);
+	double* z = generate_random_list(object_size, 1000);
+	double* vx = generate_random_list(object_size, 1);
+	double* vy = generate_random_list(object_size, 1);
+	double* vz = generate_random_list(object_size, 1);
 
 	struct timespec requestStart, requestEnd;
 	clock_gettime(CLOCK_MONOTONIC, &requestStart);
@@ -68,9 +68,9 @@ int main(int argc, char* argv[]) {
 	}
 	clock_gettime(CLOCK_MONOTONIC, &requestEnd);
 
-	float chksum = (float)sum(x,object_size) + (float)sum(y,object_size) + (float)sum(z,object_size);
+	double chksum = (double)sum(x,object_size) + (double)sum(y,object_size) + (double)sum(z,object_size);
 //	printf("%ld %ld %ld %ld\n",requestEnd.tv_sec,requestEnd.tv_nsec,requestStart.tv_sec,requestStart.tv_nsec);
-	float timeTaken = (requestEnd.tv_sec + (requestEnd.tv_nsec / 1000000000.)) - (requestStart.tv_sec + (requestStart.tv_nsec / 1000000000.));
+	double timeTaken = (requestEnd.tv_sec + (requestEnd.tv_nsec / 1000000000.)) - (requestStart.tv_sec + (requestStart.tv_nsec / 1000000000.));
 //	printf(" (1000000 * %f) / (%lu * %lu))\n",timeTaken,object_size,iters);
 	printf("Mean time per coordinate: %f us\n", ((1000000. * timeTaken) / (object_size * iters)));
 	printf("Final checksum is: %f\n", chksum);

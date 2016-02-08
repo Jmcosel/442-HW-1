@@ -22,6 +22,7 @@ def update_coords(x, y, z, vx, vy, vz):
         x[i] = x[i] + vx[i]
         y[i] = y[i] + vy[i]
         z[i] = z[i] + vz[i]
+        print(x[i] + y[i] + z[i])
 
 ############ Main:
 
