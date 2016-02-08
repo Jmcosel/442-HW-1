@@ -12,5 +12,4 @@ We ran the largest object size (2^24) for one iteration. This took about 46 seco
 
 ## Part 3
 
-After running update_locations_int (uses int_fast32_t types) and update_locations_float (uses float types) 10 times each,
-the difference in mean time between the two seems negigible. The tests were run with 2^24 object size over 2^8 iterations. See the int.out and float.out files for outputs for both. Thus, in terms of performance using either seems OK.
+After running update_locations_float and update_locations_double 5 times each, the difference in mean time between the two is significant. I ran the five tests in alteration with the other (ie. I ran the double test, then the float test, then the double test, etc.) in case the CPU load was affecting the other case by the previous tests run. The tests were all run with a 2^16 object size over 2^16 iterations. See the float.out and double.out files for outputs for both. Clearly, floats take less time to calculate than doubles (a mean of .0030208 for doubles, whereas floats have a mean of .0023582). Overall per test, there's about a 2-3 second difference on average between the two. Thus, in terms of performance, using doubles should be for precision, and floats should be used for just a slightly better speed when you're dealing with a number that uses less than 32 bits.

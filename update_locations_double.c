@@ -69,9 +69,8 @@ int main(int argc, char* argv[]) {
 	clock_gettime(CLOCK_MONOTONIC, &requestEnd);
 
 	double chksum = (double)sum(x,object_size) + (double)sum(y,object_size) + (double)sum(z,object_size);
-//	printf("%ld %ld %ld %ld\n",requestEnd.tv_sec,requestEnd.tv_nsec,requestStart.tv_sec,requestStart.tv_nsec);
 	double timeTaken = (requestEnd.tv_sec + (requestEnd.tv_nsec / 1000000000.)) - (requestStart.tv_sec + (requestStart.tv_nsec / 1000000000.));
-//	printf(" (1000000 * %f) / (%lu * %lu))\n",timeTaken,object_size,iters);
+	printf(" (1000000 * %f) / (%lu * %lu))\n",timeTaken,object_size,iters);
 	printf("Mean time per coordinate: %f us\n", ((1000000. * timeTaken) / (object_size * iters)));
 	printf("Final checksum is: %f\n", chksum);
 
