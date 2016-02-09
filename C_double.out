@@ -1,0 +1,15 @@
+ (1000000 * 12.492781) / (65536 * 65536))
+Mean time per coordinate: 0.002909 us
+Final checksum is: 6538367011.740241
+ (1000000 * 12.683695) / (65536 * 65536))
+Mean time per coordinate: 0.002953 us
+Final checksum is: 6538367011.740241
+ (1000000 * 12.594530) / (65536 * 65536))
+Mean time per coordinate: 0.002932 us
+Final checksum is: 6538367011.740241
+ (1000000 * 13.787312) / (65536 * 65536))
+Mean time per coordinate: 0.003210 us
+Final checksum is: 6538367011.740241
+ (1000000 * 13.315725) / (65536 * 65536))
+Mean time per coordinate: 0.003100 us
+Final checksum is: 6538367011.740241
