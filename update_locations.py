@@ -17,11 +17,13 @@ def generate_random_list(size, bound):
 
 ###############
 # Update location by velocity, one time-step
+@profile
 def update_coords(x, y, z, vx, vy, vz):
-    for i in range(size):
-        x[i] = x[i] + vx[i]
-        y[i] = y[i] + vy[i]
-        z[i] = z[i] + vz[i]
+    for i in range(iters):
+        for i in range(size):
+            x[i] = x[i] + vx[i]
+            y[i] = y[i] + vy[i]
+            z[i] = z[i] + vz[i]
 
 ############ Main:
 
@@ -41,12 +43,13 @@ vx = generate_random_list(size, 1.)
 vy = generate_random_list(size, 1.)
 vz = generate_random_list(size, 1.)
 
-t = timeit.timeit(stmt = "update_coords(x, y, z, vx, vy, vz)",
-                  setup = "from __main__ import update_coords, x, y, z, vx, vy, vz",
-                  number = iters)
+
+#t = timeit.timeit(stmt = "update_coords(x, y, z, vx, vy, vz)", setup = "from __main__ import update_coords, x, y, z, vx, vy, vz", number = iters)
+
+update_coords(x,y,z,vx,vy,vz)
 
 chksum = sum(x) + sum(y) + sum(z)
-print("Mean time per coordinate: " + str(1000000 * t / (size * iters)) + "us")
+#print("Mean time per coordinate: " + str(1000000 * t / (size * iters)) + "us")
 print("Final checksum is: " + str(chksum))
 
 exit(0)
