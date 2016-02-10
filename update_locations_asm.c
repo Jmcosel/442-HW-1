@@ -4,10 +4,9 @@
     Finally, it outputs the sum of all coordinates as a checksum of the computation.
     Coordinates start in the range [-1000:1000] per dimension.
     Velocities are chosen from the range [-1:1] per dimension.
+
  */
 
-/* the above line was added as http://stackoverflow.com/questions/26769129/trying-to-use-clock-gettime-but-getting-plenty-of-undeclared-errors-from-ti suggested it would fix our library functions importing improperly...
-*/ 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
