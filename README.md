@@ -29,3 +29,7 @@ The amount of memory Python has to use is astounding. Due to the sluggishness of
 ### C
 
 C performs much, much better than Python did, not only in terms of speed but also in terms of memory size used. I installed Valgrind and used its massif feature for memory profiling. Running the object size of 2^20 over 2^8 iterations not only took just a dozen or so seconds to run, but only used ~25 MB (the float version; doubles obviously doubles that since it goes from 32 -> 32*2 = 64 bit)! See massif.c\_float and massif.c\_double for the results.
+
+### ASM
+
+Our in-line Assembly code seems to be very similar in both speed and amount of memory allocated to the C code (comparing with the float output, not the double). See massif.asm.out for the report. There is a slightly longer delay on the assembly code because it's freeing memory at the end, but otherwise there isn't too much different.
