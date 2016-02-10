@@ -5,7 +5,6 @@
     Coordinates start in the range [-1000:1000] per dimension.
     Velocities are chosen from the range [-1:1] per dimension.
  */
-#define _POSIX_C_SOURCE 199309L 
 
 /* the above line was added as http://stackoverflow.com/questions/26769129/trying-to-use-clock-gettime-but-getting-plenty-of-undeclared-errors-from-ti suggested it would fix our library functions importing improperly...
 */ 
@@ -13,45 +12,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sys/resource.h>
+#include <mmintrin.h>
+#include <xmmintrin.h>
+#include <emmintrin.h>
 #include <time.h>
-
+#include <malloc.h>
 
 // Create a list of 'size' floating point numbers in the range [bound]
-int32_t* generate_random_list(uint32_t size, uint16_t bound) {
-	int32_t *list = malloc(sizeof(int32_t) * (int32_t)bound);
-	for (uint32_t i=0; i < size; i++) {
-		list[i] = rand();
-	}
-	return list;
+float* generate_random_list(uint_fast32_t size, uint_fast32_t bound) {
+    float *list = (float*) memalign(16,sizeof(float) * (float)size);
+    for (uint_fast32_t i=0; i < size; i++) {
+        list[i] = (float)rand()/(float)(RAND_MAX/bound);
+    }
+    return list;
 }
 
 // Update location by velocity, one time-step
 void update_coords(uint32_t i, int32_t* x, int32_t* y, int32_t* z, int32_t* vx, int32_t* vy, int32_t* vz) {
 
-		asm ("addl %1, %0;\n"
-		:"=r" (x[i])	/* y is output operand */
-		:"r" (vx[i])	/* x is input operand */
-		:"memory");
+        __m128 vec, flo, out;
+           
 
-		asm ("addl %1, %0;\n"
-		:"=r" (y[i])	/* y is output operand */
-		:"r" (vy[i])	/* x is input operand */
-		:"memory");
+        vec = _mm_set_ss(vx[i]);
+        flo = _mm_set_ss(x[i]);
+        out = _mm_add_ss(vec, flo);
+        _mm_store_ss(&x[i], out);
 
-		asm ("addl %1, %0;\n"
-		:"=r" (z[i])	/* y is output operand */
-		:"r" (vz[i])	/* x is input operand */
-		:"memory");
+        vec = _mm_set_ss(vy[i]);
+        flo = _mm_set_ss(y[i]);
+        out = _mm_add_ss(vec, flo);
+        _mm_store_ss(&y[i], out);
+
+        vec = _mm_set_ss(vz[i]);
+        flo = _mm_set_ss(z[i]);
+        out = _mm_add_ss(vec, flo);
+        _mm_store_ss(&z[i], out);
+        
+        
 }
 
 // Sums an array of floats; needed in replacement of Python sum()
 int32_t sum(int32_t* a, uint32_t num_elements)
 {
-	int32_t sum = 0;
-	for (uint32_t i = 0; i < num_elements; i++) {
-		sum = sum + a[i];
-	}
-	return sum;
+    __m128 avec, sumflo, sumout;
+    float* sum = _mm_malloc(sizeof(float), sizeof(int16_t));
+    sumflo = _mm_set_ss(*sum);
+
+    for (uint_fast32_t i = 0; i < num_elements; i++) {
+        avec = _mm_set_ss(a[i]);
+        sumout = _mm_add_ss(avec, sumflo);
+        _mm_store_ss(sum, sumout);
+
+    }
+    return *sum;
 }
 
 // Main:
@@ -67,12 +81,12 @@ int main(int argc, char* argv[]) {
 
 	srand(object_size);
 
-	int32_t* x = generate_random_list(object_size, 1000);
-	int32_t* y = generate_random_list(object_size, 1000);
-	int32_t* z = generate_random_list(object_size, 1000);
-	int32_t* vx = generate_random_list(object_size, 1);
-	int32_t* vy = generate_random_list(object_size, 1);
-	int32_t* vz = generate_random_list(object_size, 1);
+	float* x = generate_random_list(object_size, 1000);
+    	float* y = generate_random_list(object_size, 1000);
+    	float* z = generate_random_list(object_size, 1000);
+	float* vx = generate_random_list(object_size, 1);
+    	float* vy = generate_random_list(object_size, 1);
+    	float* vz = generate_random_list(object_size, 1);
 
 	struct timespec requestStart, requestEnd;
 	clock_gettime(CLOCK_MONOTONIC, &requestStart);
@@ -86,4 +100,10 @@ int main(int argc, char* argv[]) {
 	float chksum = sum(x,object_size) + sum(y,object_size) + sum(z,object_size);
 	printf("Mean time per coordinate: %f us\n", ((requestEnd.tv_nsec - requestStart.tv_nsec) / (1000. * (object_size * iters))));
 	printf("Final checksum is: %f\n", chksum);
+	_mm_free(x);
+    	_mm_free(y);
+    	_mm_free(z);
+    	_mm_free(vx);
+    	_mm_free(vy);
+    	_mm_free(vz);
 }
