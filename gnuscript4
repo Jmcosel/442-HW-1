@@ -1,0 +1,13 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                          # set xtics automatically
+set ytic auto                          # set ytics automatically
+set term png
+set output "output3.png"
+set title "Benchmark Testing Problem 4"
+set ylabel "Mean update time  (us)"
+set xlabel "Total number of Objects (2^N)"
+plot    "double_results" with lines, "float_results" with lines, "asm_results" with lines
+
+
