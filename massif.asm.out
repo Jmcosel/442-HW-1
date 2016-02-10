@@ -1,0 +1,157 @@
+desc: (none)
+cmd: ./update_locations_asm 1048576 256
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=126339
+mem_heap_B=4194304
+mem_heap_extra_B=4040
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=61959426
+mem_heap_B=8388608
+mem_heap_extra_B=8080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=123791656
+mem_heap_B=12582912
+mem_heap_extra_B=12120
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=185623886
+mem_heap_B=16777216
+mem_heap_extra_B=16160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=247456116
+mem_heap_B=20971520
+mem_heap_extra_B=20200
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=309288346
+mem_heap_B=25165824
+mem_heap_extra_B=24240
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=5739833560
+mem_heap_B=25165828
+mem_heap_extra_B=24260
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=5746125101
+mem_heap_B=25165832
+mem_heap_extra_B=24280
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=5752416644
+mem_heap_B=25165836
+mem_heap_extra_B=24300
+mem_stacks_B=0
+heap_tree=detailed
+n2: 25165836 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 25165824 0x400B31: generate_random_list (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400767: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400777: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400787: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400797: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x4007A9: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x4007B9: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+ n0: 12 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=10
+#-----------
+time=5758720174
+mem_heap_B=25165836
+mem_heap_extra_B=24300
+mem_stacks_B=0
+heap_tree=peak
+n2: 25165836 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n6: 25165824 0x400B31: generate_random_list (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400767: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400777: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400787: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x400797: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x4007A9: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+  n0: 4194304 0x4007B9: main (in /home/jcosel/Documents/442-HW-1/update_locations_asm)
+ n0: 12 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=11
+#-----------
+time=5758720174
+mem_heap_B=20971532
+mem_heap_extra_B=20260
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=5758720202
+mem_heap_B=16777228
+mem_heap_extra_B=16220
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=5758720230
+mem_heap_B=12582924
+mem_heap_extra_B=12180
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=5758720259
+mem_heap_B=8388620
+mem_heap_extra_B=8140
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=5758720287
+mem_heap_B=4194316
+mem_heap_extra_B=4100
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=5758720315
+mem_heap_B=12
+mem_heap_extra_B=60
+mem_stacks_B=0
+heap_tree=empty
